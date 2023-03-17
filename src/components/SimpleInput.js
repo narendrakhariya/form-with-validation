@@ -3,9 +3,15 @@ import { useState } from "react";
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState("");
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+  // If we have more than one input elements then check form validity
+  let formIsValid = false;
 
   const enteredNameIsValid = enteredName.trim() !== "";
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
+
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
 
   const nameInputChangeHandler = (event) => {
     setEnteredName(event.target.value);
@@ -50,7 +56,7 @@ const SimpleInput = (props) => {
         )}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
